@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://blrqubd81aptr"]
+
+[ext_resource type="Script" uid="uid://dsc230nndbg2x" path="res://entites/players/player.gd" id="1_oml6a"]
+[ext_resource type="Texture2D" uid="uid://dm6u6nefe8jkn" path="res://assets/demo/demoassets/TopDownSpriteSheetffff.png" id="2_5ybqa"]
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_5ybqa"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5ybqa"]
+radius = 3.0
+height = 10.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5ybqa"]
+radius = 23.086792
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "camera", "handposition", "throwposition")]
+collision_mask = 9
+script = ExtResource("1_oml6a")
+animationplayer = NodePath("AnimationPlayer")
+animation_tree = NodePath("AnimationTree")
+sprite = NodePath("Sprite2D")
+camera = NodePath("Camera2D")
+handposition = NodePath("handposition")
+throwposition = NodePath("throwposition")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=768723699]
+texture = ExtResource("2_5ybqa")
+offset = Vector2(0, -5)
+hframes = 3
+vframes = 19
+frame = 50
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2033791577]
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1767045531]
+tree_root = SubResource("AnimationNodeStateMachine_5ybqa")
+anim_player = NodePath("../AnimationPlayer")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1157705924]
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_5ybqa")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=595186079]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+
+[node name="handposition" type="Marker2D" parent="." unique_id=1414694255]
+y_sort_enabled = true
+position = Vector2(0, -9)
+
+[node name="throwposition" type="Marker2D" parent="." unique_id=2077671884]
+position = Vector2(23, 0)
+
+[node name="pickupbox" type="Area2D" parent="." unique_id=195090655]
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="pickupbox" unique_id=1159909363]
+shape = SubResource("CircleShape2D_5ybqa")
+
+[connection signal="body_entered" from="pickupbox" to="." method="_on_pickupbox_body_entered"]
+[connection signal="body_exited" from="pickupbox" to="." method="_on_pickupbox_body_exited"]
