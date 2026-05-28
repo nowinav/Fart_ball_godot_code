@@ -1,0 +1,14 @@
+[gd_resource type="AnimationNodeBlendSpace2D" format=3 uid="uid://b8kdlyc2hgbfw"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jf4dy"]
+animation = &"left"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f7vn6"]
+animation = &"right"
+
+[resource]
+blend_point_0/node = SubResource("AnimationNodeAnimation_jf4dy")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_f7vn6")
+blend_point_1/pos = Vector2(1, 0)
+blend_mode = 1

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://coon4cbsww6fv"]
+
+[ext_resource type="Script" uid="uid://ndlnuwrbnq14" path="res://levels/demolevel/demo_room.gd" id="1_7gofk"]
+[ext_resource type="Texture2D" uid="uid://dm6u6nefe8jkn" path="res://assets/demo/demoassets/TopDownSpriteSheetffff.png" id="2_87t51"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8stto"]
+texture = ExtResource("2_87t51")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+0:4/0 = 0
+1:4/0 = 0
+2:4/0 = 0
+0:5/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+0:6/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+0:7/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+0:8/0 = 0
+1:8/0 = 0
+2:8/0 = 0
+0:9/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+0:10/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+0:11/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+0:12/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+0:13/0 = 0
+1:13/0 = 0
+2:13/0 = 0
+0:14/0 = 0
+1:14/0 = 0
+2:14/0 = 0
+0:15/0 = 0
+1:15/0 = 0
+2:15/0 = 0
+0:16/0 = 0
+1:16/0 = 0
+2:16/0 = 0
+0:17/0 = 0
+1:17/0 = 0
+2:17/0 = 0
+0:18/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_wp1yu"]
+sources/0 = SubResource("TileSetAtlasSource_8stto")
+
+[node name="DemoRoom" type="Node2D" unique_id=510175144]
+y_sort_enabled = true
+script = ExtResource("1_7gofk")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=754699453]
+tile_set = SubResource("TileSet_wp1yu")

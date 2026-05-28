@@ -5,8 +5,9 @@ var player_health=10
 var player_state 
 var player_high_level:int
 var player_max_high_level:int=5
-var player_picked:bool	
-enum player_states{MORTAL,GOD,DEAD,FROZEN}
+var player_picked:bool
+var tile_selected_pos:Vector2
+enum player_states{ALIVE,RUN,DEAD,IDLE}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
