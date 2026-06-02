@@ -3,9 +3,6 @@
 [ext_resource type="Script" uid="uid://b2of3p8d2mxwa" path="res://entites/pickable_item/pickable_item.gd" id="1_wod8l"]
 [ext_resource type="Texture2D" uid="uid://dm6u6nefe8jkn" path="res://assets/demo/demoassets/TopDownSpriteSheetffff.png" id="2_lbh2d"]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_d0l5c"]
-bounce = 1.0
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d0l5c"]
 radius = 3.0
 height = 12.0
@@ -13,10 +10,11 @@ height = 12.0
 [node name="RigidBody2D" type="RigidBody2D" unique_id=1203283429 node_paths=PackedStringArray("collision")]
 y_sort_enabled = true
 disable_mode = 1
-collision_mask = 9
-mass = 0.5
-physics_material_override = SubResource("PhysicsMaterial_d0l5c")
+collision_layer = 2
+collision_mask = 11
 gravity_scale = 0.0
+lock_rotation = true
+freeze_mode = 1
 script = ExtResource("1_wod8l")
 collision = NodePath("CollisionShape2D")
 

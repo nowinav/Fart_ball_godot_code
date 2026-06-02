@@ -1,36 +1,10 @@
 [gd_scene format=3 uid="uid://blrqubd81aptr"]
 
 [ext_resource type="Script" uid="uid://dsc230nndbg2x" path="res://entites/players/player.gd" id="1_oml6a"]
+[ext_resource type="PackedScene" uid="uid://cmp1vc7hyopvc" path="res://common/particle2d/fart_explosion.tscn" id="2_h8ip0"]
 [ext_resource type="Texture2D" uid="uid://dfvy8uu2tkkju" path="res://entites/players/player_sprite.png" id="2_jf4dy"]
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://bv2cac27kymt4" path="res://entites/players/animations/player_run_blend_space_1d.tres" id="3_f7vn6"]
 [ext_resource type="Texture2D" uid="uid://x1j77phchys3" path="res://assets/demo/demoassets/kenney_crosshairPack/PNG/Outline/crosshair027.png" id="3_jf4dy"]
-
-[sub_resource type="Animation" id="Animation_jf4dy"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("playersprite:flip_h")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("playersprite:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_xs7cl"]
 resource_name = "idle_left"
@@ -124,7 +98,6 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h8ip0"]
 _data = {
-&"RESET": SubResource("Animation_jf4dy"),
 &"idle_left": SubResource("Animation_xs7cl"),
 &"idle_right": SubResource("Animation_uwpqb"),
 &"left": SubResource("Animation_f7vn6"),
@@ -145,11 +118,11 @@ blend_point_1/pos = 1.0
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h8ip0"]
 advance_mode = 2
-advance_expression = "velocity"
+advance_condition = &"run"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xs7cl"]
 advance_mode = 2
-advance_expression = " not velocity"
+advance_condition = &"idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_f7vn6"]
 advance_mode = 2
@@ -165,12 +138,14 @@ transitions = ["idle", "Run", SubResource("AnimationNodeStateMachineTransition_h
 radius = 3.0
 height = 10.0
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5ybqa"]
-radius = 45.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f7vn6"]
+size = Vector2(6.25, 5.25)
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "camera", "handposition", "throwposition")]
+[sub_resource type="CircleShape2D" id="CircleShape2D_f7vn6"]
+radius = 15.033297
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "camera", "handposition", "throwposition", "pickup_box", "fart_particle")]
 y_sort_enabled = true
-collision_mask = 9
 script = ExtResource("1_oml6a")
 animationplayer = NodePath("AnimationPlayer")
 animation_tree = NodePath("AnimationTree")
@@ -178,10 +153,8 @@ sprite = NodePath("playersprite")
 camera = NodePath("Camera2D")
 handposition = NodePath("handposition")
 throwposition = NodePath("throwposition")
-
-[node name="playersprite" type="Sprite2D" parent="." unique_id=768723699]
-texture = ExtResource("2_jf4dy")
-offset = Vector2(0, -5)
+pickup_box = NodePath("pickupbox")
+fart_particle = NodePath("CPUParticles2D")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2033791577]
 libraries/ = SubResource("AnimationLibrary_h8ip0")
@@ -190,6 +163,8 @@ libraries/ = SubResource("AnimationLibrary_h8ip0")
 tree_root = SubResource("AnimationNodeStateMachine_f7vn6")
 advance_expression_base_node = NodePath("..")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/run = false
 parameters/Run/blend_position = 0.3055787
 parameters/idle/blend_position = 0.0008326769
 
@@ -202,22 +177,43 @@ zoom = Vector2(4, 4)
 position_smoothing_enabled = true
 
 [node name="handposition" type="Marker2D" parent="." unique_id=1414694255]
-y_sort_enabled = true
-position = Vector2(0, -5)
+position = Vector2(0, -2)
 
 [node name="throwposition" type="Marker2D" parent="." unique_id=2077671884]
-position = Vector2(23, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="throwposition" unique_id=353599353]
-scale = Vector2(0.1, 0.1)
+modulate = Color(0.93333334, 0, 0.015686275, 1)
+scale = Vector2(0.2, 0.2)
 texture = ExtResource("3_jf4dy")
 offset = Vector2(0, -5)
 
 [node name="pickupbox" type="Area2D" parent="." unique_id=195090655]
-collision_mask = 5
+collision_layer = 16
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pickupbox" unique_id=1159909363]
-shape = SubResource("CircleShape2D_5ybqa")
+position = Vector2(0.125, -0.625)
+shape = SubResource("RectangleShape2D_f7vn6")
+
+[node name="attackrange" type="Area2D" parent="." unique_id=1317036002]
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackrange" unique_id=1090572717]
+shape = SubResource("CircleShape2D_f7vn6")
+
+[node name="CPUParticles2D" parent="." unique_id=1606646077 instance=ExtResource("2_h8ip0")]
+amount = 100
+explosiveness = 0.6
+randomness = 1.0
+direction = Vector2(0, 0)
+
+[node name="playersprite" type="Sprite2D" parent="." unique_id=768723699]
+rotation = 0.25023973
+texture = ExtResource("2_jf4dy")
+offset = Vector2(0, -5)
 
 [connection signal="body_entered" from="pickupbox" to="." method="_on_pickupbox_body_entered"]
 [connection signal="body_exited" from="pickupbox" to="." method="_on_pickupbox_body_exited"]
+[connection signal="body_entered" from="attackrange" to="." method="_on_attackrange_body_entered"]
+[connection signal="body_exited" from="attackrange" to="." method="_on_attackrange_body_exited"]

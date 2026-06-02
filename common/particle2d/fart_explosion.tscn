@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cmp1vc7hyopvc"]
+
+[sub_resource type="Curve" id="Curve_f7vn6"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.99041533, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_h8ip0"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
+
+[node name="CPUParticles2D" type="CPUParticles2D" unique_id=1606646077]
+modulate = Color(0, 0.69803923, 0.28235295, 1)
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+randomness = 0.55
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 15.0
+initial_velocity_max = 100.0
+scale_amount_min = 0.2
+scale_amount_max = 5.0
+scale_amount_curve = SubResource("Curve_f7vn6")
+color_ramp = SubResource("Gradient_h8ip0")

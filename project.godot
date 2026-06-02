@@ -91,8 +91,11 @@ throw_right={
 [layer_names]
 
 2d_physics/layer_1="player"
-2d_physics/layer_2="world"
+2d_physics/layer_2="pickables"
 2d_physics/layer_3="objects"
+2d_physics/layer_4="tiles"
+2d_physics/layer_5="pickup_box_player"
+2d_physics/layer_6="attack_box_player"
 
 [physics]
 
@@ -102,3 +105,4 @@ throw_right={
 
 textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
