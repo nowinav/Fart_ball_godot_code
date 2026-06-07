@@ -1,6 +1,6 @@
 extends Node
 var player_speed=100
-var player_max_speed=200
+var player_max_speed=50
 var player_health=10
 var player_state :player_states
 var player_high_level:int

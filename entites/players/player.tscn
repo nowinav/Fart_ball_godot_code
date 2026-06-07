@@ -64,7 +64,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-0.2617993877991494, 0.2617993877991494]
+"values": [-0.08726646259971647, 0.08726646259971647]
 }
 
 [sub_resource type="Animation" id="Animation_h8ip0"]
@@ -93,7 +93,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.25),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [-0.2617993877991494, 0.2617993877991494]
+"values": [-0.08726646259971647, 0.08726646259971647]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_h8ip0"]
@@ -139,12 +139,12 @@ radius = 3.0
 height = 10.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f7vn6"]
-size = Vector2(6.25, 5.25)
+size = Vector2(10, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7vn6"]
 radius = 15.033297
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "camera", "handposition", "throwposition", "pickup_box", "fart_particle")]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "camera", "handposition", "throwposition", "pickup_box", "fart_particle", "handposition2")]
 y_sort_enabled = true
 script = ExtResource("1_oml6a")
 animationplayer = NodePath("AnimationPlayer")
@@ -155,6 +155,7 @@ handposition = NodePath("handposition")
 throwposition = NodePath("throwposition")
 pickup_box = NodePath("pickupbox")
 fart_particle = NodePath("CPUParticles2D")
+handposition2 = NodePath("handposition2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2033791577]
 libraries/ = SubResource("AnimationLibrary_h8ip0")
@@ -189,15 +190,15 @@ offset = Vector2(0, -5)
 
 [node name="pickupbox" type="Area2D" parent="." unique_id=195090655]
 collision_layer = 16
-collision_mask = 2
+collision_mask = 66
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="pickupbox" unique_id=1159909363]
-position = Vector2(0.125, -0.625)
+position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_f7vn6")
 
 [node name="attackrange" type="Area2D" parent="." unique_id=1317036002]
 collision_layer = 32
-collision_mask = 2
+collision_mask = 66
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attackrange" unique_id=1090572717]
 shape = SubResource("CircleShape2D_f7vn6")
@@ -207,11 +208,14 @@ amount = 100
 explosiveness = 0.6
 randomness = 1.0
 direction = Vector2(0, 0)
+scale_amount_max = 20.0
 
 [node name="playersprite" type="Sprite2D" parent="." unique_id=768723699]
-rotation = 0.25023973
+rotation = -0.03821767
 texture = ExtResource("2_jf4dy")
 offset = Vector2(0, -5)
+
+[node name="handposition2" type="Marker2D" parent="." unique_id=43136836]
 
 [connection signal="body_entered" from="pickupbox" to="." method="_on_pickupbox_body_entered"]
 [connection signal="body_exited" from="pickupbox" to="." method="_on_pickupbox_body_exited"]

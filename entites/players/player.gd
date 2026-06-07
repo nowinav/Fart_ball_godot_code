@@ -8,13 +8,15 @@ class_name Player
 @export var throwposition: Marker2D
 @export var pickup_box:Area2D
 @export var fart_particle: CPUParticles2D
-
+@export var handposition2:Marker2D
+var fart_knockback_strength:int =400
+var void_killed_particles_scene:PackedScene =preload("res://common/particle2d/void_killed_particles.tscn")
 var tilemap_layer:TileMapLayer
-var attacked_body : Pickable
+var attacked_body 
 var attackable:bool=false
-var picked_body: Pickable
+var picked_body
 var pickable:bool
-var target_body: Pickable
+var target_body
 var select_range: int =15
 var last_facing_dir:Vector2=Vector2(-1,0)
 func _physics_process(delta: float) -> void:
@@ -22,7 +24,7 @@ func _physics_process(delta: float) -> void:
 	pickup_box.position=throwposition.position
 	animation_handler()
 	movement(delta)
-	attack()	
+	attack()
 	pick_handler()
 	state_handler()
 	tile_death_checker()
@@ -37,9 +39,23 @@ func tile_death_checker():
 	else:
 			on_death()
 func on_death():
-	
-	await get_tree().create_timer(0.25).timeout
-	Global.player_aliveable=false
+	var object_coords = tilemap_layer.local_to_map(global_position)
+	if Global.player_aliveable:
+		Global.player_picked=false		
+		var body=void_killed_particles_scene.instantiate()
+		body.emitting=true
+		Global.player_aliveable=false
+		velocity*=0.6
+		add_child(body)
+		
+		for i in range(10):
+			await get_tree().create_timer(1/24).timeout
+			scale.x-=0.1
+			scale.y-=0.1
+		
+		
+		await get_tree().create_timer(1).timeout
+		await get_tree().reload_current_scene()
 func state_handler():
 	var direction :Vector2 = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
 	Input.get_action_strength("down")-Input.get_action_strength("up"))
@@ -48,8 +64,7 @@ func state_handler():
 			Global.player_state=Global.player_states.RUN
 		elif velocity==Vector2.ZERO:
 			Global.player_state=Global.player_states.IDLE
-	else:
-		queue_free()
+	
 		
 	
 func animation_handler():
@@ -62,6 +77,7 @@ func animation_handler():
 	animation_tree.set("parameters/conditions/run",Global.player_state==Global.player_states.RUN)
 	animation_tree.set("parameters/Run/blend_position",last_facing_dir.x)
 	animation_tree.set("parameters/idle/blend_position",last_facing_dir .x)
+	
 func movement(delta):
 	Global.player_pos=self.global_position
 	var direction :Vector2 = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
@@ -70,64 +86,90 @@ func movement(delta):
 	
 	var throw_dir : Vector2=Vector2(Input.get_action_strength("throw_right")-Input.get_action_strength("throw_left")
 	,Input.get_action_strength("throw_down")-Input.get_action_strength("throw_up"))
-	if throw_dir!=Vector2.ZERO:
+	if throw_dir!=Vector2.ZERO and Global.player_aliveable:
 		throwposition.position=select_range*throw_dir.normalized()
-	if direction!=Vector2.ZERO:		
+	if direction!=Vector2.ZERO and Global.player_aliveable:		
 		if velocity.length()<=Global.player_max_speed:
-			velocity+=delta*direction*Global.player_speed
+			
+			velocity+=(direction*Global.player_speed)*delta
 		else:
-			velocity=direction*Global.player_max_speed
+			velocity=(direction*Global.player_max_speed)
 	else:
+		if velocity.length()>10:
+			velocity*=0.9
+		else:
 			velocity=Vector2.ZERO
 func throw_object()->void:
+	
 	if picked_body!=null:
-		picked_body.reparent(get_parent())
-		picked_body.global_position=Global.tile_selected_pos.round()
-		Global.player_picked=false
-		picked_body=null
-		
+		if Input.is_action_just_pressed("pick"):
+			picked_body.picked=false			
+			picked_body.reparent(get_parent())
+			picked_body.global_position=Global.tile_selected_pos.round()
+			Global.player_picked=false
+			picked_body=null
+		elif Input.is_action_just_pressed("shoot") and picked_body is spear:
+			picked_body.picked=false
+			picked_body.reparent(get_parent())
+			picked_body.throwable=true	
+			picked_body.dir=self.global_position.direction_to(throwposition.global_position)
+			Global.player_picked=false
+			picked_body=null
 func pick_handler()->void:
-	if pickable and Input.is_action_just_pressed("pick") and not Global.player_picked and self.velocity.length()==0:
+	if (pickable and Input.is_action_just_pressed("pick") and not Global.player_picked
+	 and self.velocity.length()==0):
 		Global.player_picked=true
+		target_body.picked=true
 		
-		target_body.reparent(handposition)
-		target_body.linear_velocity=Vector2.ZERO
-		target_body.angular_velocity=0.0
-		target_body.rotation=0
-		target_body.position=handposition.position
-		
+		if target_body is Pickable:
+			target_body.reparent(handposition)
+			target_body.linear_velocity=Vector2.ZERO
+			target_body.angular_velocity=0.0
+			target_body.rotation=0
+			target_body.position=handposition.position
+		elif target_body is weapon:
+			target_body.reparent(handposition2)
+			target_body.velocity=Vector2.ZERO
+			target_body.position=handposition2.position
+			
 		picked_body=target_body
 		
 		
 		
 		
-	elif Input.is_action_just_pressed("pick") and Global.player_picked :
+	elif Global.player_picked :
 		throw_object()
 func _on_pickupbox_body_entered(body: Node2D) -> void:
-	if body is Pickable:
+	if body :
 		pickable=true
 		target_body=body
 func _on_pickupbox_body_exited(body: Node2D) -> void:
-	if body is Pickable:
+	if body :
 		pickable=false # Replace with function body.
 		target_body=null
 		
 
 
 func _on_attackrange_body_entered(body: Node2D) -> void:
-	if body is Pickable:
+	if body:
 		
 		attackable=true
 		attacked_body=body
 
 
 func _on_attackrange_body_exited(body: Node2D) -> void:
-	if body is Pickable:
+	if body:
+		
 		attackable=false
 		attacked_body=null
 func attack():
-	if Input.is_action_just_pressed("select") and attackable:
-		var dir = self.global_position.direction_to(attacked_body.global_position)
-		attacked_body.linear_velocity+=dir*100
+	if Input.is_action_just_pressed("select") :
 		fart_particle.emitting=true	
+		if attackable:
+			var dir = self.global_position.direction_to(attacked_body.global_position)
+			if attacked_body is Pickable:
+				attacked_body.linear_velocity+=dir*100
+			else:
+				attacked_body.velocity+=dir*100
+				
 		print("attack")

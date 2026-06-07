@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dxu7ri1rp04np"]
+
+[ext_resource type="Script" uid="uid://drgho6gfe4d50" path="res://objects/weapon/base_weapon/weapon.gd" id="1_05qyq"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_x57b7"]
+
+[node name="weapon" type="CharacterBody2D" unique_id=1169449952 node_paths=PackedStringArray("collision_shape")]
+collision_layer = 64
+collision_mask = 48
+script = ExtResource("1_05qyq")
+collision_shape = NodePath("CollisionShape2D")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=903164226]
+shape = SubResource("CircleShape2D_x57b7")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=185787566]
