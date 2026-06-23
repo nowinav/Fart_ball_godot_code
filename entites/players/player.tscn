@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://dfvy8uu2tkkju" path="res://entites/players/player_sprite.png" id="2_jf4dy"]
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://bv2cac27kymt4" path="res://entites/players/animations/player_run_blend_space_1d.tres" id="3_f7vn6"]
 [ext_resource type="Texture2D" uid="uid://x1j77phchys3" path="res://assets/demo/demoassets/kenney_crosshairPack/PNG/Outline/crosshair027.png" id="3_jf4dy"]
+[ext_resource type="Script" uid="uid://g3gvehjthy0q" path="res://entites/players/playerhitbox.gd" id="6_xs7cl"]
 
 [sub_resource type="Animation" id="Animation_xs7cl"]
 resource_name = "idle_left"
@@ -104,16 +105,16 @@ _data = {
 &"right": SubResource("Animation_h8ip0")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_f7vn6"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_tp23i"]
 animation = &"idle_left"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_h8ip0"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yybum"]
 animation = &"idle_right"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_xs7cl"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_f7vn6")
+blend_point_0/node = SubResource("AnimationNodeAnimation_tp23i")
 blend_point_0/pos = -1.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_h8ip0")
+blend_point_1/node = SubResource("AnimationNodeAnimation_yybum")
 blend_point_1/pos = 1.0
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_h8ip0"]
@@ -144,8 +145,13 @@ size = Vector2(10, 10)
 [sub_resource type="CircleShape2D" id="CircleShape2D_f7vn6"]
 radius = 15.033297
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xs7cl"]
+radius = 3.0
+height = 6.0
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "camera", "handposition", "throwposition", "pickup_box", "fart_particle", "handposition2")]
 y_sort_enabled = true
+collision_mask = 512
 script = ExtResource("1_oml6a")
 animationplayer = NodePath("AnimationPlayer")
 animation_tree = NodePath("AnimationTree")
@@ -174,8 +180,14 @@ rotation = -1.5707964
 shape = SubResource("CapsuleShape2D_5ybqa")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=595186079]
-zoom = Vector2(4, 4)
+zoom = Vector2(2, 2)
+process_callback = 0
+limit_left = -300
+limit_top = -550
+limit_right = 300
+limit_bottom = 550
 position_smoothing_enabled = true
+position_smoothing_speed = 1.0
 
 [node name="handposition" type="Marker2D" parent="." unique_id=1414694255]
 position = Vector2(0, -2)
@@ -198,7 +210,7 @@ shape = SubResource("RectangleShape2D_f7vn6")
 
 [node name="attackrange" type="Area2D" parent="." unique_id=1317036002]
 collision_layer = 32
-collision_mask = 66
+collision_mask = 2114
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attackrange" unique_id=1090572717]
 shape = SubResource("CircleShape2D_f7vn6")
@@ -210,14 +222,25 @@ randomness = 1.0
 direction = Vector2(0, 0)
 scale_amount_max = 20.0
 
+[node name="handposition2" type="Marker2D" parent="." unique_id=43136836]
+
 [node name="playersprite" type="Sprite2D" parent="." unique_id=768723699]
-rotation = -0.03821767
+rotation = -0.063243985
 texture = ExtResource("2_jf4dy")
 offset = Vector2(0, -5)
+flip_h = true
 
-[node name="handposition2" type="Marker2D" parent="." unique_id=43136836]
+[node name="hitbox" type="Area2D" parent="." unique_id=2073957236]
+collision_layer = 128
+collision_mask = 256
+script = ExtResource("6_xs7cl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=1810433574]
+shape = SubResource("CapsuleShape2D_xs7cl")
 
 [connection signal="body_entered" from="pickupbox" to="." method="_on_pickupbox_body_entered"]
 [connection signal="body_exited" from="pickupbox" to="." method="_on_pickupbox_body_exited"]
 [connection signal="body_entered" from="attackrange" to="." method="_on_attackrange_body_entered"]
 [connection signal="body_exited" from="attackrange" to="." method="_on_attackrange_body_exited"]
+[connection signal="area_entered" from="hitbox" to="." method="_on_hitbox_area_entered"]
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

@@ -15,12 +15,12 @@ func throw(dir):
 		z_as_relative=false
 		for i in range(5):
 			await get_tree().create_timer(0.05).timeout
-			scale.x+=0.1
-			scale.y+=0.1
+			scale.x+=0.2
+			scale.y+=0.2
 		for i in range(5):
 			await get_tree().create_timer(0.05).timeout
-			scale.x-=0.1
-			scale.y-=0.1
+			scale.x-=0.2
+			scale.y-=0.2
 		z_as_relative=true
 		collision_shape.disabled=false
 		throw_force=10
@@ -29,6 +29,7 @@ func collision_disabler():
 	if picked:
 		collision_shape.disabled=true
 	else:
+		await get_tree().create_timer(0.01).timeout
 		collision_shape.disabled=false
 func friction_handler():
 	if velocity.length()>0.2:
@@ -44,14 +45,15 @@ func _physics_process(delta: float) -> void:
 		throw(dir)
 	move_and_slide()
 func tile_checker():
-	var object_coords = tilemap_layer.local_to_map(global_position)
-	var data= tilemap_layer.get_cell_tile_data(object_coords)
-	if not picked:
-		if data:
-			if not data.get_custom_data("object_alive"):
+	if tilemap_layer:
+		var object_coords = tilemap_layer.local_to_map(global_position)
+		var data= tilemap_layer.get_cell_tile_data(object_coords)
+		if not picked:
+			if data:
+				if not data.get_custom_data("object_alive"):
+					on_death()
+			else:
 				on_death()
-		else:
-			on_death()
 func on_death():
 	picked=false
 	collision_shape.disabled=true

@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b6476eylorycf"]
+
+[ext_resource type="Script" uid="uid://cblh3awvoxebq" path="res://objects/goal/goal.gd" id="1_elvn0"]
+[ext_resource type="Texture2D" uid="uid://ljsppdfao2n2" path="res://assets/demo/demoassets/100-Sub-Assets-Free/Misc_Tiles/Archway-1.png" id="1_vcxaa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1cvb"]
+size = Vector2(27, 11.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_elvn0"]
+size = Vector2(14, 12)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1131662324]
+position = Vector2(0, -1)
+collision_layer = 512
+collision_mask = 3
+script = ExtResource("1_elvn0")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1720779346]
+y_sort_enabled = true
+position = Vector2(0.0047188397, -27.249998)
+scale = Vector2(0.21698114, 0.21698113)
+texture = ExtResource("1_vcxaa")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=664465597]
+position = Vector2(0.0047187805, -27.25)
+collision_layer = 1024
+collision_mask = 2
+
+[node name="d2" type="CollisionShape2D" parent="Area2D" unique_id=521671168]
+position = Vector2(-0.5047188, 22.125)
+shape = SubResource("RectangleShape2D_x1cvb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1338450459]
+position = Vector2(-23.995281, -5.25)
+shape = SubResource("RectangleShape2D_elvn0")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="." unique_id=360127821]
+position = Vector2(23.004719, -5.25)
+shape = SubResource("RectangleShape2D_elvn0")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

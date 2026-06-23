@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://c4wxdgpfgskwp" path="res://objects/spear/spear.gd" id="1_ypuju"]
 [ext_resource type="Texture2D" uid="uid://ceb6j7y25rfp6" path="res://objects/spear/assets/spear .png" id="2_kr1bq"]
+[ext_resource type="Script" uid="uid://sojk0jhgvl8s" path="res://objects/spear/weapon_hurtbox.gd" id="3_jpmxt"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kr1bq"]
-size = Vector2(14, 9)
+size = Vector2(14, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kr1bq"]
+radius = 3.0
 
 [node name="spear" type="CharacterBody2D" unique_id=1169449952 node_paths=PackedStringArray("collision_shape")]
 collision_layer = 64
@@ -21,3 +25,12 @@ flip_h = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=795111871]
 position = Vector2(-5, 0)
 shape = SubResource("RectangleShape2D_kr1bq")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1178755938]
+collision_layer = 256
+collision_mask = 129
+script = ExtResource("3_jpmxt")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D" unique_id=754580421]
+position = Vector2(-8, 0)
+shape = SubResource("CircleShape2D_kr1bq")

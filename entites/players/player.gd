@@ -9,11 +9,12 @@ class_name Player
 @export var pickup_box:Area2D
 @export var fart_particle: CPUParticles2D
 @export var handposition2:Marker2D
+enum deaths{DROWN,WEAPON,BLAST,ALIVE}
+var deathby:deaths=deaths.ALIVE
 var body_list:Array
-var fart_knockback_strength:int =400
+var fart_knockback_strength =400
 var void_killed_particles_scene:PackedScene =preload("res://common/particle2d/void_killed_particles.tscn")
 var tilemap_layer:TileMapLayer
-#var attacked_body 
 var attackable:bool=false
 var picked_body
 var pickable:bool
@@ -26,37 +27,46 @@ func _physics_process(delta: float) -> void:
 	animation_handler()
 	movement(delta)
 	attack()
-	pick_handler()
+	#pick_handler()
 	state_handler()
 	tile_death_checker()
 	move_and_slide()
 func tile_death_checker():
-	var player_tile_coords=tilemap_layer.local_to_map(Global.player_pos)
-	var death_prop=tilemap_layer.get_cell_tile_data(player_tile_coords)
-	if death_prop:
-		if not death_prop.get_custom_data("Tile_deadly"):
-			on_death()
-			
-	else:
-			on_death()
+	if tilemap_layer!=null:
+		var player_tile_coords=tilemap_layer.local_to_map(Global.player_pos)
+		var death_prop=tilemap_layer.get_cell_tile_data(player_tile_coords)
+		if death_prop:
+			if not death_prop.get_custom_data("Tile_deadly"):
+				deathby=deaths.DROWN
+				on_death()
+				
+		else:
+				deathby=deaths.DROWN
+				on_death()
 func on_death():
 	var object_coords = tilemap_layer.local_to_map(global_position)
+	#print("martoy")
 	if Global.player_aliveable:
-		Global.player_picked=false		
-		var body=void_killed_particles_scene.instantiate()
-		body.emitting=true
+		
+		Global.player_picked=false	
+		match  deathby:
+			deaths.DROWN:
+				var body=void_killed_particles_scene.instantiate()
+				body.emitting=true
+				
+				velocity*=0.7
+				add_child(body)
+				
+				for i in range(10):
+					await get_tree().create_timer(1/24).timeout
+					scale.x-=0.1
+					scale.y-=0.1
+				await get_tree().create_timer(0.5).timeout
+		Global.reset()
+		
+		queue_free()
 		Global.player_aliveable=false
-		velocity*=0.6
-		add_child(body)
 		
-		for i in range(10):
-			await get_tree().create_timer(1/24).timeout
-			scale.x-=0.1
-			scale.y-=0.1
-		
-		
-		await get_tree().create_timer(1).timeout
-		await get_tree().reload_current_scene()
 func state_handler():
 	var direction :Vector2 = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
 	Input.get_action_strength("down")-Input.get_action_strength("up"))
@@ -83,8 +93,6 @@ func movement(delta):
 	Global.player_pos=self.global_position
 	var direction :Vector2 = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
 	Input.get_action_strength("down")-Input.get_action_strength("up"))
-	
-	
 	var throw_dir : Vector2=Vector2(Input.get_action_strength("throw_right")-Input.get_action_strength("throw_left")
 	,Input.get_action_strength("throw_down")-Input.get_action_strength("throw_up"))
 	if throw_dir!=Vector2.ZERO and Global.player_aliveable:
@@ -92,7 +100,7 @@ func movement(delta):
 	if direction!=Vector2.ZERO and Global.player_aliveable:		
 		if velocity.length()<=Global.player_max_speed:
 			
-			velocity+=(direction*Global.player_speed)*delta
+			velocity=(direction*Global.player_speed)
 		else:
 			velocity=(direction*Global.player_max_speed)
 	else:
@@ -198,8 +206,20 @@ func attack():
 				var attacked_body=i
 				var dir = self.global_position.direction_to(attacked_body.global_position)
 				if attacked_body is Pickable:
-					attacked_body.linear_velocity+=dir*100
+					attacked_body.linear_velocity=dir*fart_knockback_strength
+				elif attacked_body is football_ai:
+					attacked_body.velocity+=dir*fart_knockback_strength
 				else:
-					attacked_body.velocity+=dir*100
+					attacked_body.velocity=dir*fart_knockback_strength
 				
 	
+
+
+func _on_hitbox_body_entered(body: Node2D) -> void:
+	pass
+
+
+func _on_hitbox_area_entered(area: Area2D) -> void:
+	if area is weapon_hurtbox:
+		deathby=deaths.WEAPON
+		on_death()

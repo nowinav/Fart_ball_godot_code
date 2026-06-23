@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bnstvdgdmlf2m"]
+
+[ext_resource type="Texture2D" uid="uid://dfvy8uu2tkkju" path="res://entites/players/player_sprite.png" id="1_72klv"]
+[ext_resource type="Script" uid="uid://c66k4mgy4ukgd" path="res://entites/football_ai/football_ai.gd" id="1_sffy3"]
+[ext_resource type="PackedScene" uid="uid://cmp1vc7hyopvc" path="res://common/particle2d/fart_explosion.tscn" id="3_2xnhb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_72klv"]
+radius = 3.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_sffy3"]
+radius = 15.033297
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=812321689 node_paths=PackedStringArray("fart_particles", "raycast")]
+collision_layer = 2048
+collision_mask = 33
+script = ExtResource("1_sffy3")
+fart_particles = NodePath("CPUParticles2D")
+raycast = NodePath("RayCast2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=889924758]
+texture = ExtResource("1_72klv")
+offset = Vector2(0, -5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1045853242]
+shape = SubResource("CircleShape2D_72klv")
+
+[node name="attackrange" type="Area2D" parent="." unique_id=386379568]
+collision_layer = 32
+collision_mask = 67
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="attackrange" unique_id=915311218]
+shape = SubResource("CircleShape2D_sffy3")
+
+[node name="CPUParticles2D" parent="." unique_id=1606646077 instance=ExtResource("3_2xnhb")]
+amount = 100
+explosiveness = 0.6
+randomness = 1.0
+direction = Vector2(0, 0)
+scale_amount_max = 20.0
+
+[node name="RayCast2D" type="RayCast2D" parent="." unique_id=1797293528]
+rotation = 1.5707964
+target_position = Vector2(-29, 1.2676303e-06)
+collision_mask = 3
+
+[connection signal="body_entered" from="attackrange" to="." method="_on_attackrange_body_entered"]
+[connection signal="body_exited" from="attackrange" to="." method="_on_attackrange_body_exited"]

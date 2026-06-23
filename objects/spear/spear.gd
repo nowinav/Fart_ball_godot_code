@@ -13,9 +13,9 @@ func fire(dir,force=600):
 		velocity+=dir*force
 		throwable=false
 		collision_shape.disabled=false
-		if returable:
-			look_at(player.global_position)
-			await  get_tree().create_timer(3).timeout
-			print("coming")
-			velocity+=self.global_position.direction_to(player.global_position)*force
-			returable=false
+		#if returable:
+			#look_at(player.global_position)
+			#await  get_tree().create_timer(3).timeout
+			#print("coming")
+			#velocity+=self.global_position.direction_to(player.global_position)*force
+			#returable=false
