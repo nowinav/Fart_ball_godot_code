@@ -149,14 +149,13 @@ radius = 32.0
 radius = 3.0
 height = 6.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "camera", "handposition", "throwposition", "pickup_box", "fart_particle", "handposition2")]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "handposition", "throwposition", "pickup_box", "fart_particle", "handposition2")]
 y_sort_enabled = true
 collision_mask = 2560
 script = ExtResource("1_oml6a")
 animationplayer = NodePath("AnimationPlayer")
 animation_tree = NodePath("AnimationTree")
 sprite = NodePath("playersprite")
-camera = NodePath("")
 handposition = NodePath("handposition")
 throwposition = NodePath("throwposition")
 pickup_box = NodePath("pickupbox")
@@ -200,7 +199,7 @@ shape = SubResource("RectangleShape2D_f7vn6")
 
 [node name="attackrange" type="Area2D" parent="." unique_id=1317036002]
 collision_layer = 32
-collision_mask = 2050
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attackrange" unique_id=1090572717]
 shape = SubResource("CircleShape2D_f7vn6")
@@ -215,7 +214,7 @@ scale_amount_max = 20.0
 [node name="handposition2" type="Marker2D" parent="." unique_id=43136836]
 
 [node name="playersprite" type="Sprite2D" parent="." unique_id=768723699]
-rotation = -0.07313054
+rotation = -0.06497186
 texture = ExtResource("2_jf4dy")
 offset = Vector2(0, -5)
 

@@ -6,15 +6,33 @@ extends Node2D
 @export var player1_pos:Marker2D
 @export var player2_pos:Marker2D
 @export var score:Label
+@export var time:Label
 @export var camer:Camera2D
+@export var game_timer: Timer
+@export var celeb_mark1:Marker2D
+@export var celeb_mark2:Marker2D
+@export var celeb_mark3:Marker2D
+@export var celeb_mark4:Marker2D
+@export var celeb_mark5:Marker2D
+@export var celeb_mark6:Marker2D
+@export var celeb_node:Node2D
+var celeb_mark_list:Array=[]
+var time_value:int
 var player_node:Player
 var football_ai_1:football_ai
 
 var player_scene=preload("res://entites/players/player.tscn")
 var football_ai_scene=preload("res://entites/football_ai/football_ai.tscn")
 var puck_scene=preload("res://entites/pickable_item/pickable_item.tscn")
+
+	
+func particles_on():
+	for i in range(5):
+		celeb_node.get_child(i).emitting=true
 func _ready() -> void:
-	process_mode=Node.PROCESS_MODE_ALWAYS
+	particles_on()
+	game_timer.start(Global.game_time)
+	
 	Global.reset()
 	spawn(preload("res://objects/goal/goal.tscn"),goal1_pos.global_position,2)
 	spawn(preload("res://objects/goal/goal.tscn"),goal2_pos.global_position,1)
@@ -73,3 +91,7 @@ func _process(delta: float) -> void:
 func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("pause"):
 		get_tree().paused=not get_tree().paused
+
+
+func _on_timer_timeout() -> void:
+	get_tree().change_scene_to_file("res://levels/main_menu/finalscreen.tscn")

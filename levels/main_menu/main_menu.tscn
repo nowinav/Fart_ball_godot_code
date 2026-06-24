@@ -1,9 +1,86 @@
 [gd_scene format=3 uid="uid://c43dkpb6yqp4m"]
 
-[node name="Control" type="Control" unique_id=2012419876]
+[ext_resource type="Script" uid="uid://c21vg4uxko5xk" path="res://levels/main_menu/main_menu.gd" id="1_nt5r4"]
+
+[node name="Control" type="Control" unique_id=2012419876 node_paths=PackedStringArray("time_scroll", "match_time_label")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_nt5r4")
+time_scroll = NodePath("HSlider")
+match_time_label = NodePath("HSlider/Label")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=713555580]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=723271858]
+layout_mode = 2
+text = "PLAY"
+
+[node name="Button2" type="Button" parent="VBoxContainer" unique_id=1354503965]
+layout_mode = 2
+text = "TUTORIAL"
+
+[node name="Button3" type="Button" parent="VBoxContainer" unique_id=1081992125]
+layout_mode = 2
+text = "QUIT"
+
+[node name="HSlider" type="HSlider" parent="." unique_id=860852112]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 511.0
+offset_right = 875.0
+offset_bottom = 527.0
+size_flags_horizontal = 4
+min_value = 1.0
+max_value = 20.0
+value = 1.0
+ticks_position = 1
+
+[node name="Label" type="Label" parent="HSlider" unique_id=1198992155]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -274.5
+offset_top = -137.0
+offset_right = 274.5
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 50
+text = "Match time"
+horizontal_alignment = 1
+
+[node name="BoxContainer" type="BoxContainer" parent="." unique_id=829446173]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -16.0
+offset_right = 4.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button3" to="." method="_on_button_3_pressed"]
+[connection signal="drag_ended" from="HSlider" to="." method="_on_h_slider_drag_ended"]

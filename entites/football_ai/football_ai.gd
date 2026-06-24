@@ -41,10 +41,10 @@ func _process(delta: float) -> void:
 func on_death():
 	if Global.football_ai_alive:
 		var body=void_killed_particles_scene.instantiate()
-		for i in range(10):
-			await get_tree().create_timer(1/24).timeout
-			scale.x-=0.1
-			scale.y-=0.1
+		#for i in range(10):
+			#await get_tree().create_timer(1/24).timeout
+			#scale.x-=0.1
+			#scale.y-=0.1
 		add_child(body)
 		queue_free()
 		Global.football_ai_alive=false
