@@ -11,6 +11,7 @@ var fart_level:int=3
 var player_max_high_level:int=5
 var player_picked:bool
 var football_ai_alive:bool
+var football_ai_speed:int=90
 var tile_selected_pos:Vector2
 var player_pos:Vector2
 var player_aliveable:bool
@@ -34,6 +35,7 @@ func reset():
 	football_ai_alive=false
 	team1_goals=0
 	team2_goals=0
+	football_ai_speed=90
 	#player1goals=0
 	#player2goals=0
 func goal_reset():
@@ -41,10 +43,8 @@ func goal_reset():
 	player2goals=0
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("pause"):
-		get_tree().paused=not get_tree().paused

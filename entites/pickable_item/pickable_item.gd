@@ -61,7 +61,12 @@ func on_death():
 				scale.x-=0.1
 				scale.y-=0.1
 			add_child(body)
-		
+		else:
+			for i in range(10):
+				await get_tree().create_timer(1/24).timeout
+				scale.x+=1
+				scale.y+=1
+			
 		
 		await get_tree().create_timer(0.5).timeout
 		

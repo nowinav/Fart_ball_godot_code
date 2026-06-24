@@ -8,12 +8,121 @@
 radius = 3.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sffy3"]
-radius = 15.033297
+radius = 32.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=812321689 node_paths=PackedStringArray("dir_ray", "raycast_ball", "fart_particles", "raycast")]
+[sub_resource type="Animation" id="Animation_2xnhb"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_tp23i"]
+resource_name = "football_ai_left"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.08726646, 0.08726646259971647]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_yybum"]
+resource_name = "football_ai_right"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.08726646259971647, 0.08726646259971647]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_up7c7"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_up7c7"]
+_data = {
+&"RESET": SubResource("Animation_2xnhb"),
+&"football_ai_left": SubResource("Animation_tp23i"),
+&"football_ai_right": SubResource("Animation_yybum"),
+&"idle": SubResource("Animation_up7c7")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=812321689 node_paths=PackedStringArray("animation_player", "dir_ray", "raycast_ball", "fart_particles", "raycast")]
 collision_layer = 2048
-collision_mask = 512
+collision_mask = 513
 script = ExtResource("1_sffy3")
+animation_player = NodePath("AnimationPlayer")
 dir_ray = NodePath("RayCast2D3")
 raycast_ball = NodePath("RayCast2D2")
 fart_particles = NodePath("CPUParticles2D")
@@ -24,7 +133,7 @@ shape = SubResource("CircleShape2D_72klv")
 
 [node name="attackrange" type="Area2D" parent="." unique_id=386379568]
 collision_layer = 32
-collision_mask = 67
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="attackrange" unique_id=915311218]
 shape = SubResource("CircleShape2D_sffy3")
@@ -49,8 +158,12 @@ target_position = Vector2(10, 0)
 collision_mask = 3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=889924758]
+self_modulate = Color(0.84761, 0.44850242, 3.85046e-07, 1)
 texture = ExtResource("1_72klv")
 offset = Vector2(0, -5)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=927400819]
+libraries/ = SubResource("AnimationLibrary_up7c7")
 
 [connection signal="body_entered" from="attackrange" to="." method="_on_attackrange_body_entered"]
 [connection signal="body_exited" from="attackrange" to="." method="_on_attackrange_body_exited"]

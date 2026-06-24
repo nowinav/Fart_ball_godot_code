@@ -23,6 +23,7 @@ var select_range: int =15
 var last_facing_dir:Vector2=Vector2(-1,0)
 func _physics_process(delta: float) -> void:
 	Global.tile_selected_pos=throwposition.global_position
+	Global.player_pos=global_position
 	pickup_box.position=throwposition.position
 	animation_handler()
 	movement(delta)
@@ -212,7 +213,7 @@ func attack():
 					attacked_body.linear_velocity=dir*fart_knockback_strength
 				elif attacked_body is football_ai:
 					
-					i.velocity=dir*fart_knockback_strength
+					attacked_body.velocity+=dir*fart_knockback_strength
 				else:
 					attacked_body.velocity=dir*fart_knockback_strength
 				

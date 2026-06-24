@@ -9,8 +9,9 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0)
 
 [node name="CPUParticles2D" type="CPUParticles2D" unique_id=1606646077]
 modulate = Color(0, 0.69803923, 0.28235295, 1)
+scale = Vector2(3, 3)
 emitting = false
-amount = 50
+amount = 500
 lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
