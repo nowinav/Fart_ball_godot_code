@@ -31,7 +31,7 @@ func particles_on():
 		celeb_node.get_child(i).emitting=true
 func _ready() -> void:
 	particles_on()
-	game_timer.start(Global.game_time)
+	game_timer.start(Global.match_time_left)
 	
 	Global.reset()
 	spawn(preload("res://objects/goal/goal.tscn"),goal1_pos.global_position,2)
@@ -82,8 +82,9 @@ func player_spawn_handler():
 		spawn(player_scene,player1_pos.global_position)
 		
 func _process(delta: float) -> void:
-	
-	score.text=str(Global.player1goals)+"-"+str(Global.player2goals)
+	Global.match_time_left=game_timer.time_left
+	time.text="Time:"+str(snapped(game_timer.time_left,0.1))
+	score.text="SCORE:"+str(Global.player1goals)+"-"+str(Global.player2goals)
 	player_spawn_handler()
 	puck_spawn_handler()
 	football_ai_spawn_handler()

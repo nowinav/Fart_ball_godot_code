@@ -114,6 +114,8 @@ func tile_checker_general(position:Vector2):
 	if data:
 		if not data.get_custom_data("object_alive"):
 			return false
+		if data.get_custom_data("danger"):
+			return false
 		else:
 			return true
 func tile_checker():

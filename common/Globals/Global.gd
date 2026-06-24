@@ -13,7 +13,8 @@ var player_picked:bool
 var football_ai_alive:bool
 var football_ai_speed:int=100
 var start:bool
-var game_time:float=1.0
+var match_time_left:float=60
+var game_time:float=60
 var tile_selected_pos:Vector2
 var player_pos:Vector2
 var player_aliveable:bool
@@ -44,15 +45,11 @@ func goal_reset():
 	player1goals=0
 	player2goals=0
 # Called when the node enters the scene tree for the first time.
-func time():
-	await get_tree().create_timer(game_time).timeout
-	get_tree().change_scene_to_file("res://levels/main_menu/finalscreen.tscn")
+
 func _ready() -> void:
 	
 	pass # Replace with function body.
 func _process(delta: float) -> void:
-	if start:
-		start=false
-		time()
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
