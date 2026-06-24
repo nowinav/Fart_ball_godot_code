@@ -225,10 +225,9 @@ scale_amount_max = 20.0
 [node name="handposition2" type="Marker2D" parent="." unique_id=43136836]
 
 [node name="playersprite" type="Sprite2D" parent="." unique_id=768723699]
-rotation = -0.063243985
+rotation = 0.083349325
 texture = ExtResource("2_jf4dy")
 offset = Vector2(0, -5)
-flip_h = true
 
 [node name="hitbox" type="Area2D" parent="." unique_id=2073957236]
 collision_layer = 128

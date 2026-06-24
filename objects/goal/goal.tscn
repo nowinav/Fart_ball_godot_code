@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ljsppdfao2n2" path="res://assets/demo/demoassets/100-Sub-Assets-Free/Misc_Tiles/Archway-1.png" id="1_vcxaa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1cvb"]
-size = Vector2(27, 11.75)
+size = Vector2(27, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_elvn0"]
 size = Vector2(14, 12)
@@ -12,7 +12,7 @@ size = Vector2(14, 12)
 [node name="StaticBody2D" type="StaticBody2D" unique_id=1131662324]
 position = Vector2(0, -1)
 collision_layer = 512
-collision_mask = 3
+collision_mask = 2051
 script = ExtResource("1_elvn0")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1720779346]
@@ -27,7 +27,7 @@ collision_layer = 1024
 collision_mask = 2
 
 [node name="d2" type="CollisionShape2D" parent="Area2D" unique_id=521671168]
-position = Vector2(-0.5047188, 22.125)
+position = Vector2(-0.0047187805, 20.25)
 shape = SubResource("RectangleShape2D_x1cvb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1338450459]

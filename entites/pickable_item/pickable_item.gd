@@ -3,6 +3,8 @@ var void_killed_particles_scene:PackedScene =preload("res://common/particle2d/vo
 @export var collision: CollisionShape2D
 @export var node:Node2D
 @export var mark:Marker2D
+@export var mark_2:Marker2D
+@export var mark_3:Marker2D
 var tilemap_layer:TileMapLayer
 var picked:bool
 var drowned:bool
@@ -31,6 +33,8 @@ func tile_checker():
 				on_death()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	Global.ballmarker_2=mark_2.global_position
+	Global.ballmarker_3=mark_3.global_position
 	Global.marker_pos=mark.global_position
 	Global.puck_pos=self.global_position
 	if goal:
@@ -62,8 +66,8 @@ func on_death():
 		await get_tree().create_timer(0.5).timeout
 		
 		
-		Global.puck_alive=false
 		queue_free()
+		Global.puck_alive=false
 func _physics_process(delta: float) -> void:
 	linear_velocity*=friction_coeff
 	if linear_velocity.length()>1000:

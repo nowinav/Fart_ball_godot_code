@@ -10,16 +10,14 @@ radius = 3.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_sffy3"]
 radius = 15.033297
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=812321689 node_paths=PackedStringArray("fart_particles", "raycast")]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=812321689 node_paths=PackedStringArray("dir_ray", "raycast_ball", "fart_particles", "raycast")]
 collision_layer = 2048
-collision_mask = 33
+collision_mask = 512
 script = ExtResource("1_sffy3")
+dir_ray = NodePath("RayCast2D3")
+raycast_ball = NodePath("RayCast2D2")
 fart_particles = NodePath("CPUParticles2D")
 raycast = NodePath("RayCast2D")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=889924758]
-texture = ExtResource("1_72klv")
-offset = Vector2(0, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1045853242]
 shape = SubResource("CircleShape2D_72klv")
@@ -39,9 +37,20 @@ direction = Vector2(0, 0)
 scale_amount_max = 20.0
 
 [node name="RayCast2D" type="RayCast2D" parent="." unique_id=1797293528]
-rotation = 1.5707964
-target_position = Vector2(-29, 1.2676303e-06)
+target_position = Vector2(10, 0)
+collision_mask = 4097
+
+[node name="RayCast2D2" type="RayCast2D" parent="." unique_id=1697308298]
+target_position = Vector2(10, 0)
 collision_mask = 3
+
+[node name="RayCast2D3" type="RayCast2D" parent="." unique_id=1608927649]
+target_position = Vector2(10, 0)
+collision_mask = 3
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=889924758]
+texture = ExtResource("1_72klv")
+offset = Vector2(0, -5)
 
 [connection signal="body_entered" from="attackrange" to="." method="_on_attackrange_body_entered"]
 [connection signal="body_exited" from="attackrange" to="." method="_on_attackrange_body_exited"]

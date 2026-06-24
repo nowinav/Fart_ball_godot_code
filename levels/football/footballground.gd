@@ -5,8 +5,9 @@ extends Node2D
 @export var ball_pos:Marker2D
 @export var player1_pos:Marker2D
 @export var player2_pos:Marker2D
-
+@export var score:Label
 func _ready() -> void:
+	Global.reset()
 	spawn(preload("res://objects/goal/goal.tscn"),goal1_pos.global_position,2)
 	spawn(preload("res://objects/goal/goal.tscn"),goal2_pos.global_position,1)
 func spawn(body_scene:PackedScene,spawncoords:Vector2=Vector2.ZERO,type:int=0):
@@ -29,7 +30,6 @@ func spawn(body_scene:PackedScene,spawncoords:Vector2=Vector2.ZERO,type:int=0):
 func puck_spawn_handler():
 	if not Global.puck_alive:
 		Global.puck_alive=true
-		
 		spawn(preload("res://entites/pickable_item/pickable_item.tscn"))
 func football_ai_spawn_handler():
 	if not Global.football_ai_alive:
@@ -43,6 +43,7 @@ func player_spawn_handler():
 		spawn(preload("res://entites/players/player.tscn"),player1_pos.global_position)
 		
 func _process(delta: float) -> void:
+	score.text=str(Global.player1goals)+"-"+str(Global.player2goals)
 	player_spawn_handler()
 	puck_spawn_handler()
 	football_ai_spawn_handler()

@@ -40,7 +40,7 @@ custom_data_layer_2/type = 1
 sources/3 = SubResource("TileSetAtlasSource_vysqm")
 pattern_0 = SubResource("TileMapPattern_wp1yu")
 
-[node name="Footballground" type="Node2D" unique_id=2099270054 node_paths=PackedStringArray("tilemap_layer", "goal1_pos", "goal2_pos", "ball_pos", "player1_pos", "player2_pos")]
+[node name="Footballground" type="Node2D" unique_id=2099270054 node_paths=PackedStringArray("tilemap_layer", "goal1_pos", "goal2_pos", "ball_pos", "player1_pos", "player2_pos", "score")]
 y_sort_enabled = true
 script = ExtResource("1_5pi10")
 tilemap_layer = NodePath("TileMapLayer2")
@@ -49,6 +49,7 @@ goal2_pos = NodePath("markers/goal2")
 ball_pos = NodePath("markers/ballstart")
 player1_pos = NodePath("markers/player1")
 player2_pos = NodePath("markers/player2")
+score = NodePath("CanvasLayer/Control/Label")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="." unique_id=155381036]
 z_index = -1
@@ -59,15 +60,33 @@ tile_set = SubResource("TileSet_73pat")
 [node name="markers" type="Node2D" parent="." unique_id=509579922]
 
 [node name="goal1" type="Marker2D" parent="markers" unique_id=341359796]
-position = Vector2(0, -448)
+position = Vector2(0, -512)
 
 [node name="goal2" type="Marker2D" parent="markers" unique_id=934950639]
-position = Vector2(0, 448)
+position = Vector2(0, 512)
 
 [node name="ballstart" type="Marker2D" parent="markers" unique_id=974153766]
 
 [node name="player1" type="Marker2D" parent="markers" unique_id=549120435]
-position = Vector2(0, -30)
+position = Vector2(0, -128)
 
 [node name="player2" type="Marker2D" parent="markers" unique_id=1278193135]
-position = Vector2(0, 30)
+position = Vector2(0, 128)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=439595474]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=1430981735]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_right = 128.0
+offset_bottom = 40.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+
+[node name="Label" type="Label" parent="CanvasLayer/Control" unique_id=395205960]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

@@ -20,6 +20,8 @@ var goal1_coords:Vector2
 var goal2_coords:Vector2
 var team1_goals:int
 var team2_goals:int
+var ballmarker_2:Vector2
+var ballmarker_3:Vector2
 enum player_states{RUN,IDLE,ATTACK}
 func reset():
 	drunk_level=3
@@ -28,8 +30,13 @@ func reset():
 	player_aliveable=false
 	player_max_high_level=5
 	player_max_speed=100
+	puck_alive=false
+	football_ai_alive=false
 	team1_goals=0
 	team2_goals=0
+	#player1goals=0
+	#player2goals=0
+func goal_reset():
 	player1goals=0
 	player2goals=0
 # Called when the node enters the scene tree for the first time.
@@ -39,4 +46,5 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	pass
+	if Input.is_action_just_pressed("pause"):
+		get_tree().paused=not get_tree().paused

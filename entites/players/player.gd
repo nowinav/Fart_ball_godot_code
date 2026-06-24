@@ -62,7 +62,7 @@ func on_death():
 					scale.x-=0.1
 					scale.y-=0.1
 				await get_tree().create_timer(0.5).timeout
-		Global.reset()
+		
 		
 		queue_free()
 		Global.player_aliveable=false
@@ -187,9 +187,11 @@ func _on_attackrange_body_entered(body: Node2D) -> void:
 	if body:
 		
 		
-		#attacked_body=body
-		body_list.append(body)
-
+		if body is football_ai:
+			body_list.append(body)
+		else:
+			body_list.append(body)
+		
 
 func _on_attackrange_body_exited(body: Node2D) -> void:
 	if body:
@@ -203,12 +205,14 @@ func attack():
 		fart_particle.emitting=true	
 		if body_list!=null:
 			for i in body_list:
+				print(body_list)
 				var attacked_body=i
 				var dir = self.global_position.direction_to(attacked_body.global_position)
 				if attacked_body is Pickable:
 					attacked_body.linear_velocity=dir*fart_knockback_strength
 				elif attacked_body is football_ai:
-					attacked_body.velocity+=dir*fart_knockback_strength
+					
+					i.velocity=dir*fart_knockback_strength
 				else:
 					attacked_body.velocity=dir*fart_knockback_strength
 				
