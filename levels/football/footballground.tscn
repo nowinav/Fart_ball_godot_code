@@ -47,7 +47,7 @@ custom_data_layer_3/type = 1
 sources/3 = SubResource("TileSetAtlasSource_vysqm")
 pattern_0 = SubResource("TileMapPattern_wp1yu")
 
-[node name="Footballground" type="Node2D" unique_id=2099270054 node_paths=PackedStringArray("tilemap_layer", "goal1_pos", "goal2_pos", "ball_pos", "player1_pos", "player2_pos", "score", "time", "game_timer", "celeb_mark1", "celeb_mark2", "celeb_mark3", "celeb_mark4", "celeb_mark5", "celeb_mark6", "celeb_node")]
+[node name="Footballground" type="Node2D" unique_id=2099270054 node_paths=PackedStringArray("tilemap_layer", "goal1_pos", "goal2_pos", "ball_pos", "player1_pos", "player2_pos", "score", "time", "camer", "game_timer", "celeb_mark1", "celeb_mark2", "celeb_mark3", "celeb_mark4", "celeb_mark5", "celeb_mark6", "celeb_node")]
 y_sort_enabled = true
 script = ExtResource("1_5pi10")
 tilemap_layer = NodePath("TileMapLayer2")
@@ -58,6 +58,7 @@ player1_pos = NodePath("markers/player1")
 player2_pos = NodePath("markers/player2")
 score = NodePath("CanvasLayer/Control/Label")
 time = NodePath("CanvasLayer/Control/Label2")
+camer = NodePath("Camera2D")
 game_timer = NodePath("Timer")
 celeb_mark1 = NodePath("celebrationmarker/Marker2D")
 celeb_mark2 = NodePath("celebrationmarker/Marker2D2")
@@ -164,5 +165,8 @@ position = Vector2(256, 320)
 [node name="CPUParticles2D6" parent="Node2D" unique_id=462816022 instance=ExtResource("3_u0hk2")]
 modulate = Color(1, 0, 0, 1)
 position = Vector2(256, -320)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=136241762]
+position_smoothing_enabled = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

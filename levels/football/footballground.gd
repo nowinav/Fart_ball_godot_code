@@ -20,7 +20,7 @@ var celeb_mark_list:Array=[]
 var time_value:int
 var player_node:Player
 var football_ai_1:football_ai
-
+var football_ai_2:football_ai
 var player_scene=preload("res://entites/players/player.tscn")
 var football_ai_scene=preload("res://entites/football_ai/football_ai.tscn")
 var puck_scene=preload("res://entites/pickable_item/pickable_item.tscn")
@@ -31,22 +31,38 @@ func particles_on():
 		celeb_node.get_child(i).emitting=true
 func _ready() -> void:
 	particles_on()
-	game_timer.start(Global.match_time_left)
-	
+	if not Global.tutorial:
+		game_timer.start(Global.match_time_left)
 	Global.reset()
 	spawn(preload("res://objects/goal/goal.tscn"),goal1_pos.global_position,2)
 	spawn(preload("res://objects/goal/goal.tscn"),goal2_pos.global_position,1)
 func camera_handler():
 	if player_node!=null and football_ai_1!=null:
-		print("heil")
+		#print("heil")
 		var avg=(player_node.global_position+football_ai_1.global_position)/2
 		camer.global_position=avg
-		if player_node.global_position.distance_to(football_ai_1.global_position)<50:
-			camer.zoom=Vector2(2,2)
+		if player_node.global_position.distance_to(football_ai_1.global_position)<200:
+			if camer.zoom.length()<=Vector2(2,2).length():
+				await get_tree().create_timer(1/24).timeout
+				camer.zoom+=Vector2(0.1,0.1)
 		else:
 			camer.zoom=Vector2(1,1)
+	elif football_ai_1!=null and football_ai_2!=null:
+		var avg=(football_ai_2.global_position+football_ai_1.global_position)/2
+		camer.global_position=avg
+		if football_ai_2.global_position.distance_to(football_ai_1.global_position)<200:
+			if camer.zoom.length()<=Vector2(2,2).length():
+				await get_tree().create_timer(1/24).timeout
+				camer.zoom+=Vector2(0.1,0.1)
+				
+		else:
+			camer.zoom=Vector2(1,1)
+	else:
+		for i in [football_ai_1,player_node,football_ai_2]:
+			if i:
+				camer.global_position=i.global_position
 func spawn(body_scene:PackedScene,spawncoords:Vector2=Vector2.ZERO,type:int=0):
-	print(spawncoords)
+	#print(spawncoords)
 	var body=body_scene.instantiate()
 	if body is Pickable:
 		body.tilemap_layer=tilemap_layer
@@ -58,9 +74,15 @@ func spawn(body_scene:PackedScene,spawncoords:Vector2=Vector2.ZERO,type:int=0):
 	elif body is weapon:
 		body.tilemap_layer=tilemap_layer
 	elif body is football_ai:
-		football_ai_1==body
+		if football_ai_1==null:
+			football_ai_1=body
+			body.goal_pos=goal1_pos.global_position
+		elif football_ai_2==null :
+			body.goal_pos=goal2_pos.global_position
+			football_ai_2=body
+			football_ai_2.speed+=10
 		body.tilemap_layer=tilemap_layer
-		body.goal_pos=goal1_pos.global_position
+		
 	elif body is goal:
 		body.type=type
 	body.global_position=spawncoords
@@ -87,7 +109,8 @@ func _process(delta: float) -> void:
 	score.text="SCORE:"+str(Global.player1goals)+"-"+str(Global.player2goals)
 	player_spawn_handler()
 	puck_spawn_handler()
-	football_ai_spawn_handler()
+	if Global.tutorial==false:
+		football_ai_spawn_handler()
 	camera_handler()
 func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("pause"):

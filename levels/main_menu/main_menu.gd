@@ -13,13 +13,16 @@ func _process(delta: float) -> void:
 
 
 func _on_button_pressed() -> void:
-	await get_tree().create_timer(1).timeout
+	Global.goal_reset()
+	Global.match_time_left=Global.game_time
 	Global.start=true
+	Global.tutorial=false
 	get_tree().change_scene_to_file("res://levels/football/footballground.tscn")
 
 
 func _on_button_2_pressed() -> void:
-	pass # Replace with function body.
+	Global.tutorial=true
+	get_tree().change_scene_to_file("res://levels/football/footballground.tscn")
 
 
 func _on_button_3_pressed() -> void:

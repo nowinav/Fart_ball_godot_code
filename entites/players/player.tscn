@@ -214,7 +214,7 @@ scale_amount_max = 20.0
 [node name="handposition2" type="Marker2D" parent="." unique_id=43136836]
 
 [node name="playersprite" type="Sprite2D" parent="." unique_id=768723699]
-rotation = -0.06497186
+rotation = 0.008165579
 texture = ExtResource("2_jf4dy")
 offset = Vector2(0, -5)
 
@@ -225,10 +225,6 @@ script = ExtResource("6_xs7cl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=1810433574]
 shape = SubResource("CapsuleShape2D_xs7cl")
-
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1182116392]
-zoom = Vector2(2, 2)
-position_smoothing_enabled = true
 
 [connection signal="body_entered" from="pickupbox" to="." method="_on_pickupbox_body_entered"]
 [connection signal="body_exited" from="pickupbox" to="." method="_on_pickupbox_body_exited"]

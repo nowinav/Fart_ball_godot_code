@@ -9,12 +9,16 @@ size = Vector2(27, 16)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_elvn0"]
 size = Vector2(14, 12)
 
-[node name="StaticBody2D" type="StaticBody2D" unique_id=1131662324]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1hdy"]
+size = Vector2(66.5, 61)
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1131662324 node_paths=PackedStringArray("sprite")]
 position = Vector2(0, -1)
 scale = Vector2(2, 1)
 collision_layer = 512
 collision_mask = 2051
 script = ExtResource("1_elvn0")
+sprite = NodePath("Sprite2D")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1720779346]
 y_sort_enabled = true
@@ -39,4 +43,14 @@ shape = SubResource("RectangleShape2D_elvn0")
 position = Vector2(23.004719, -5.25)
 shape = SubResource("RectangleShape2D_elvn0")
 
+[node name="Area2D2" type="Area2D" parent="." unique_id=1905013583]
+collision_layer = 0
+collision_mask = 2051
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D2" unique_id=1847337962]
+position = Vector2(-0.75, -29.5)
+shape = SubResource("RectangleShape2D_m1hdy")
+
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Area2D2" to="." method="_on_area_2d_2_body_entered"]
+[connection signal="body_exited" from="Area2D2" to="." method="_on_area_2d_2_body_exited"]

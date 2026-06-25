@@ -8,6 +8,7 @@ var player_state :player_states
 var drunk_level:int
 var puck_pos:Vector2
 var fart_level:int=3
+var tutorial:bool
 var player_max_high_level:int=5
 var player_picked:bool
 var football_ai_alive:bool

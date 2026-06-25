@@ -165,8 +165,7 @@ func attack():
 func _on_attackrange_body_entered(body: Node2D) -> void:
 	if body:
 		body_list.append(body)
-		if body is Player:
-			attackable=true
+		
 
 func _on_attackrange_body_exited(body: Node2D) -> void:
 	if body:

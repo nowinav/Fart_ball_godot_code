@@ -22,6 +22,7 @@ var target_body
 var select_range: int =15
 var last_facing_dir:Vector2=Vector2(-1,0)
 func _physics_process(delta: float) -> void:
+	print(velocity)
 	Global.tile_selected_pos=throwposition.global_position
 	Global.player_pos=global_position
 	pickup_box.position=throwposition.position
@@ -204,10 +205,13 @@ func _on_attackrange_body_exited(body: Node2D) -> void:
 func attack():
 	if Input.is_action_just_pressed("select") :
 		fart_particle.emitting=true	
+		
+		
 		if body_list!=null:
 			for i in body_list:
-				print(body_list)
+				#print(body_list)
 				var attacked_body=i
+				
 				var dir = self.global_position.direction_to(attacked_body.global_position)
 				if attacked_body is Pickable:
 					attacked_body.linear_velocity=dir*fart_knockback_strength
@@ -216,7 +220,7 @@ func attack():
 					attacked_body.velocity+=dir*fart_knockback_strength
 				else:
 					attacked_body.velocity=dir*fart_knockback_strength
-				
+		
 	
 
 
