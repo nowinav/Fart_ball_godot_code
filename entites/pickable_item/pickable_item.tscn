@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://b2of3p8d2mxwa" path="res://entites/pickable_item/pickable_item.gd" id="1_wod8l"]
 [ext_resource type="Texture2D" uid="uid://c4pjtggvoss41" path="res://entites/pickable_item/puck.png" id="2_sgrow"]
 [ext_resource type="Texture2D" uid="uid://dx6lwqp16487o" path="res://assets/demo/demoassets/100-Sub-Assets-Free/Weapons/Farmer PitchFork.png" id="3_fweoc"]
+[ext_resource type="AudioStream" uid="uid://cjql8oan7cy02" path="res://assets/sounds/snap.wav" id="4_snl8y"]
+[ext_resource type="AudioStream" uid="uid://x50vx18k7los" path="res://assets/sounds/Sound effects Pack 2/1up/WAV/1up 3 - Sound effects Pack 2.wav" id="5_kp856"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_sgrow"]
 radius = 6.0
@@ -10,7 +12,7 @@ radius = 6.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_fweoc"]
 radius = 1.0
 
-[node name="RigidBody2D" type="RigidBody2D" unique_id=1203283429 node_paths=PackedStringArray("collision", "node", "mark", "mark_2", "mark_3")]
+[node name="RigidBody2D" type="RigidBody2D" unique_id=1203283429 node_paths=PackedStringArray("collision", "node", "mark", "mark_2", "mark_3", "audio_player", "drown_sound")]
 y_sort_enabled = true
 disable_mode = 1
 collision_layer = 2
@@ -24,6 +26,8 @@ node = NodePath("Node2D")
 mark = NodePath("Node2D/Marker2D")
 mark_2 = NodePath("Node2D/Marker2D2")
 mark_3 = NodePath("Node2D/Marker2D3")
+audio_player = NodePath("snap")
+drown_sound = NodePath("drown")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=486378742]
 y_sort_enabled = true
@@ -58,3 +62,12 @@ collision_mask = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/CharacterBody2D" unique_id=1856298021]
 position = Vector2(-8, 0)
 shape = SubResource("CircleShape2D_fweoc")
+
+[node name="snap" type="AudioStreamPlayer2D" parent="." unique_id=575937369]
+stream = ExtResource("4_snl8y")
+
+[node name="drown" type="AudioStreamPlayer2D" parent="." unique_id=673869794]
+stream = ExtResource("5_kp856")
+volume_db = 5.0
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

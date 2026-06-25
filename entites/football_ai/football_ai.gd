@@ -9,6 +9,7 @@ var goal_pos:Vector2
 var attackable:bool
 var dribalable:bool
 var marker:Vector2
+var player:Player
 @export var animation_player:AnimationPlayer
 @export var dir_ray:RayCast2D
 @export var raycast_ball: RayCast2D
@@ -23,6 +24,7 @@ var tangent : Vector2
 var fric_coeff=0.9
 var spawn_timeabe:bool
 @export var raycast:RayCast2D
+@export var fart_sound:AudioStreamPlayer2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().create_timer(5).timeout
@@ -96,7 +98,7 @@ func marker_handler():
 func defend():
 	
 	dir=global_position.direction_to(Global.puck_pos)
-	velocity=dir*speed
+	velocity=dir.normalized()*speed
 	
 func Dribble():
 	pass
@@ -106,7 +108,7 @@ func chase():
 		smarth_rotation(raycast_ball.get_collision_point())
 	else:
 		
-		velocity=dir*speed
+		velocity=dir.normalized()*speed
 	
 func tile_checker_general(position:Vector2):
 	var pos=tilemap_layer.local_to_map(position)
@@ -146,13 +148,15 @@ func _physics_process(delta: float) -> void:
 	tile_checker()
 	state_handler()
 	ray_handler()
-	dir=global_position.direction_to(Global.marker_pos)
+	dir=global_position.direction_to(Global.marker_pos).normalized()
 			
 			
 	
 	
 	move_and_slide()
 func attack():
+	if fart_sound.playing==false:
+		fart_sound.playing=true
 	for i in body_list:
 		var dir =global_position.direction_to(i.global_position)
 		fart_particles.emitting=true

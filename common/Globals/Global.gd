@@ -1,6 +1,6 @@
 extends Node
-var player_speed=100
-var player_max_speed=150
+var player_speed=50
+var player_max_speed=50
 var player1goals:int
 var player2goals:int
 var player_health=3
@@ -12,7 +12,7 @@ var tutorial:bool
 var player_max_high_level:int=5
 var player_picked:bool
 var football_ai_alive:bool
-var football_ai_speed:int=100
+var football_ai_speed:int=50
 var start:bool
 var match_time_left:float=60
 var game_time:float=60

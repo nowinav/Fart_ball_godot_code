@@ -74,6 +74,8 @@ func spawn(body_scene:PackedScene,spawncoords:Vector2=Vector2.ZERO,type:int=0):
 	elif body is weapon:
 		body.tilemap_layer=tilemap_layer
 	elif body is football_ai:
+		if player_node:
+			body.player=player_node
 		if football_ai_1==null:
 			football_ai_1=body
 			body.goal_pos=goal1_pos.global_position
@@ -114,7 +116,7 @@ func _process(delta: float) -> void:
 	camera_handler()
 func _input(event: InputEvent) -> void:
 	if Input.is_action_pressed("pause"):
-		get_tree().paused=not get_tree().paused
+		get_tree().change_scene_to_file("res://levels/main_menu/main_menu.tscn")
 
 
 func _on_timer_timeout() -> void:

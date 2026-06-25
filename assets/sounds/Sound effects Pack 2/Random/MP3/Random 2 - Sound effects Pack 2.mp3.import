@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ovs7tyjnf00p"
+path="res://.godot/imported/Random 2 - Sound effects Pack 2.mp3-c9bb0cc0a1c70558a01da23abf2de976.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Random/MP3/Random 2 - Sound effects Pack 2.mp3"
+dest_files=["res://.godot/imported/Random 2 - Sound effects Pack 2.mp3-c9bb0cc0a1c70558a01da23abf2de976.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

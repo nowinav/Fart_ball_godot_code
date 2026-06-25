@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cfk2hp1pex8oy"
+path="res://.godot/imported/Powerup 7 - Sound effects Pack 2.wav-585f434392f332c250495d9daa532a62.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Power-up/WAV/Powerup 7 - Sound effects Pack 2.wav"
+dest_files=["res://.godot/imported/Powerup 7 - Sound effects Pack 2.wav-585f434392f332c250495d9daa532a62.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

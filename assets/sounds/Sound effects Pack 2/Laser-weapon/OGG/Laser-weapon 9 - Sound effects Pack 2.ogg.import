@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bgs0tm28m45yg"
+path="res://.godot/imported/Laser-weapon 9 - Sound effects Pack 2.ogg-8648b756dd12c1235d35bc7fe9b7293d.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Laser-weapon/OGG/Laser-weapon 9 - Sound effects Pack 2.ogg"
+dest_files=["res://.godot/imported/Laser-weapon 9 - Sound effects Pack 2.ogg-8648b756dd12c1235d35bc7fe9b7293d.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

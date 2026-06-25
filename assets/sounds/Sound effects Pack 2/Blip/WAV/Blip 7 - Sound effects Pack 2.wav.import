@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ddbq1uga4q6cf"
+path="res://.godot/imported/Blip 7 - Sound effects Pack 2.wav-5ee4a49ef8525e4b1d1ceae5d42b8f5c.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Blip/WAV/Blip 7 - Sound effects Pack 2.wav"
+dest_files=["res://.godot/imported/Blip 7 - Sound effects Pack 2.wav-5ee4a49ef8525e4b1d1ceae5d42b8f5c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cefuyh1njkyw1"
+path="res://.godot/imported/Singular Water droplets.wav-5860ce2375814043aa1ff02ab953c131.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Water related Sounds/Singular Water droplets.wav"
+dest_files=["res://.godot/imported/Singular Water droplets.wav-5860ce2375814043aa1ff02ab953c131.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

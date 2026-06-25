@@ -3,6 +3,7 @@ extends StaticBody2D
 var type:int
 var body_list:Array=[]
 @export var sprite:Sprite2D
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	pass # Replace with function body.
@@ -12,6 +13,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	pass
 func goal_handler():
+	audio_stream_player_2d.playing=true
 	if type==1:
 		Global.player1goals+=1
 	elif type==2:

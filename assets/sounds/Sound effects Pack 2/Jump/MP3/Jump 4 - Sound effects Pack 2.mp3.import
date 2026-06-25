@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dl55r1qpge22p"
+path="res://.godot/imported/Jump 4 - Sound effects Pack 2.mp3-b91b15005fa8ed9dae4542709ddd8d14.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Jump/MP3/Jump 4 - Sound effects Pack 2.mp3"
+dest_files=["res://.godot/imported/Jump 4 - Sound effects Pack 2.mp3-b91b15005fa8ed9dae4542709ddd8d14.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://i0pj0p7hmfoh"
+path="res://.godot/imported/Calming Ocean.wav-ecc0893049610ae37a75fedd16ead34c.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Water related Sounds/Calming Ocean.wav"
+dest_files=["res://.godot/imported/Calming Ocean.wav-ecc0893049610ae37a75fedd16ead34c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

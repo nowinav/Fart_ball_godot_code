@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dbrdnhi7t34d1"
+path="res://.godot/imported/Lose 4 - Sound effects Pack 2.wav-5dac493175c527f035d56be012ab237c.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Lose/WAV/Lose 4 - Sound effects Pack 2.wav"
+dest_files=["res://.godot/imported/Lose 4 - Sound effects Pack 2.wav-5dac493175c527f035d56be012ab237c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

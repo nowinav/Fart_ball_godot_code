@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://c43dkpb6yqp4m"]
 
 [ext_resource type="Script" uid="uid://c21vg4uxko5xk" path="res://levels/main_menu/main_menu.gd" id="1_nt5r4"]
+[ext_resource type="AudioStream" uid="uid://bs1ualjsrbfeh" path="res://assets/sounds/mouse-click.wav" id="2_qbtdg"]
+[ext_resource type="AudioStream" uid="uid://bv6x1i8h7rao" path="res://assets/sounds/slide1.wav" id="3_86fa0"]
 
-[node name="Control" type="Control" unique_id=2012419876 node_paths=PackedStringArray("time_scroll", "match_time_label")]
+[node name="Control" type="Control" unique_id=2012419876 node_paths=PackedStringArray("time_scroll", "match_time_label", "mouse_click_sound", "Bgmusic", "slider")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,6 +14,9 @@ grow_vertical = 2
 script = ExtResource("1_nt5r4")
 time_scroll = NodePath("HSlider")
 match_time_label = NodePath("HSlider/Label")
+mouse_click_sound = NodePath("mouseclick")
+Bgmusic = NodePath("bgmusic")
+slider = NodePath("slide")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=713555580]
 layout_mode = 1
@@ -79,6 +84,14 @@ offset_top = -16.0
 offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="mouseclick" type="AudioStreamPlayer2D" parent="." unique_id=1390119254]
+stream = ExtResource("2_qbtdg")
+
+[node name="bgmusic" type="AudioStreamPlayer2D" parent="." unique_id=2115265332]
+
+[node name="slide" type="AudioStreamPlayer2D" parent="." unique_id=1530427984]
+stream = ExtResource("3_86fa0")
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

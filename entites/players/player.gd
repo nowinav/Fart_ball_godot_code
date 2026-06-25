@@ -9,6 +9,7 @@ class_name Player
 @export var pickup_box:Area2D
 @export var fart_particle: CPUParticles2D
 @export var handposition2:Marker2D
+@export var fart_sound:AudioStreamPlayer2D
 enum deaths{DROWN,WEAPON,BLAST,ALIVE}
 var deathby:deaths=deaths.ALIVE
 var body_list:Array
@@ -19,10 +20,11 @@ var attackable:bool=false
 var picked_body
 var pickable:bool
 var target_body
+@export var drown_sound:AudioStreamPlayer2D
 var select_range: int =15
 var last_facing_dir:Vector2=Vector2(-1,0)
 func _physics_process(delta: float) -> void:
-	print(velocity)
+
 	Global.tile_selected_pos=throwposition.global_position
 	Global.player_pos=global_position
 	pickup_box.position=throwposition.position
@@ -48,14 +50,19 @@ func tile_death_checker():
 func on_death():
 	var object_coords = tilemap_layer.local_to_map(global_position)
 	#print("martoy")
+	
 	if Global.player_aliveable:
+		drown_sound.pitch_scale=randf_range(0,1)
 		
+			
 		Global.player_picked=false	
+		
 		match  deathby:
 			deaths.DROWN:
 				var body=void_killed_particles_scene.instantiate()
 				body.emitting=true
-				
+				if not drown_sound.playing:
+					drown_sound.playing=true
 				velocity*=0.7
 				add_child(body)
 				
@@ -94,7 +101,7 @@ func animation_handler():
 func movement(delta):
 	Global.player_pos=self.global_position
 	var direction :Vector2 = Vector2(Input.get_action_strength("right")-Input.get_action_strength("left"),
-	Input.get_action_strength("down")-Input.get_action_strength("up"))
+	Input.get_action_strength("down")-Input.get_action_strength("up")).normalized()
 	var throw_dir : Vector2=Vector2(Input.get_action_strength("throw_right")-Input.get_action_strength("throw_left")
 	,Input.get_action_strength("throw_down")-Input.get_action_strength("throw_up"))
 	if throw_dir!=Vector2.ZERO and Global.player_aliveable:
@@ -205,7 +212,8 @@ func _on_attackrange_body_exited(body: Node2D) -> void:
 func attack():
 	if Input.is_action_just_pressed("select") :
 		fart_particle.emitting=true	
-		
+		if fart_sound.playing==false:
+			fart_sound.playing=true
 		
 		if body_list!=null:
 			for i in body_list:
@@ -216,7 +224,7 @@ func attack():
 				if attacked_body is Pickable:
 					attacked_body.linear_velocity=dir*fart_knockback_strength
 				elif attacked_body is football_ai:
-					
+					print("attacked")
 					attacked_body.velocity+=dir*fart_knockback_strength
 				else:
 					attacked_body.velocity=dir*fart_knockback_strength

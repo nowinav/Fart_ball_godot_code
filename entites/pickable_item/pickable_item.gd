@@ -5,6 +5,9 @@ var void_killed_particles_scene:PackedScene =preload("res://common/particle2d/vo
 @export var mark:Marker2D
 @export var mark_2:Marker2D
 @export var mark_3:Marker2D
+@export var audio_player:AudioStreamPlayer2D
+@export var drown_sound:AudioStreamPlayer2D
+
 var tilemap_layer:TileMapLayer
 var picked:bool
 var drowned:bool
@@ -12,7 +15,9 @@ var friction_coeff:float=0.95
 var goal:Marker2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	contact_monitor = true
+	max_contacts_reported = 10
+	body_entered.connect(_on_body_entered)
 
 func tile_checker():
 	if tilemap_layer:
@@ -55,7 +60,11 @@ func on_death():
 		var body=void_killed_particles_scene.instantiate()
 		body.emitting=true
 		linear_velocity*=0.1
+		drown_sound.pitch_scale=randf_range(0,1)
+		
 		if drowned:
+			if not drown_sound.playing:
+				drown_sound.playing=true
 			for i in range(10):
 				await get_tree().create_timer(1/24).timeout
 				scale.x-=0.1
@@ -75,5 +84,12 @@ func on_death():
 		Global.puck_alive=false
 func _physics_process(delta: float) -> void:
 	linear_velocity*=friction_coeff
+	
 	if linear_velocity.length()>1000:
 		linear_velocity=Vector2.ZERO
+
+
+func _on_body_entered(body: Node) -> void:
+	audio_player.pitch_scale=randf_range(1,5)
+	audio_player.playing=true
+	#print("snap")

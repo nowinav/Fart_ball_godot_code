@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dg2i2p7pgaku8"
+path="res://.godot/imported/Jump 6 - Sound effects Pack 2.wav-47c03a2cd7b66f2ad7f6cb3cbbe4b3c9.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Jump/WAV/Jump 6 - Sound effects Pack 2.wav"
+dest_files=["res://.godot/imported/Jump 6 - Sound effects Pack 2.wav-47c03a2cd7b66f2ad7f6cb3cbbe4b3c9.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

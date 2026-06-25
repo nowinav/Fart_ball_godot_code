@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cxwcwewvmnmts"
+path="res://.godot/imported/Teleport 9 - Sound effects Pack 2.wav-43f986f6ee9d73f7d817a149ed0892cf.sample"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Teleport/WAV/Teleport 9 - Sound effects Pack 2.wav"
+dest_files=["res://.godot/imported/Teleport 9 - Sound effects Pack 2.wav-43f986f6ee9d73f7d817a149ed0892cf.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

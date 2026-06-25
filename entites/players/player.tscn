@@ -6,6 +6,8 @@
 [ext_resource type="AnimationNodeBlendSpace1D" uid="uid://bv2cac27kymt4" path="res://entites/players/animations/player_run_blend_space_1d.tres" id="3_f7vn6"]
 [ext_resource type="Texture2D" uid="uid://x1j77phchys3" path="res://assets/demo/demoassets/kenney_crosshairPack/PNG/Outline/crosshair027.png" id="3_jf4dy"]
 [ext_resource type="Script" uid="uid://g3gvehjthy0q" path="res://entites/players/playerhitbox.gd" id="6_xs7cl"]
+[ext_resource type="AudioStream" uid="uid://x50vx18k7los" path="res://assets/sounds/Sound effects Pack 2/1up/WAV/1up 3 - Sound effects Pack 2.wav" id="7_uwpqb"]
+[ext_resource type="AudioStream" uid="uid://l4rvtuqyrp5n" path="res://assets/sounds/Sound effects Pack 2/Teleport/WAV/Teleport 2 - Sound effects Pack 2.wav" id="8_5a50r"]
 
 [sub_resource type="Animation" id="Animation_xs7cl"]
 resource_name = "idle_left"
@@ -149,7 +151,7 @@ radius = 32.0
 radius = 3.0
 height = 6.0
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "handposition", "throwposition", "pickup_box", "fart_particle", "handposition2")]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=75674569 node_paths=PackedStringArray("animationplayer", "animation_tree", "sprite", "handposition", "throwposition", "pickup_box", "fart_particle", "handposition2", "fart_sound", "drown_sound")]
 y_sort_enabled = true
 collision_mask = 2560
 script = ExtResource("1_oml6a")
@@ -161,6 +163,8 @@ throwposition = NodePath("throwposition")
 pickup_box = NodePath("pickupbox")
 fart_particle = NodePath("CPUParticles2D")
 handposition2 = NodePath("handposition2")
+fart_sound = NodePath("fart")
+drown_sound = NodePath("drown")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2033791577]
 libraries/ = SubResource("AnimationLibrary_h8ip0")
@@ -214,7 +218,7 @@ scale_amount_max = 20.0
 [node name="handposition2" type="Marker2D" parent="." unique_id=43136836]
 
 [node name="playersprite" type="Sprite2D" parent="." unique_id=768723699]
-rotation = 0.008165579
+rotation = -0.07924501
 texture = ExtResource("2_jf4dy")
 offset = Vector2(0, -5)
 
@@ -225,6 +229,17 @@ script = ExtResource("6_xs7cl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=1810433574]
 shape = SubResource("CapsuleShape2D_xs7cl")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=453528513]
+current = true
+
+[node name="drown" type="AudioStreamPlayer2D" parent="." unique_id=710054533]
+stream = ExtResource("7_uwpqb")
+
+[node name="fart" type="AudioStreamPlayer2D" parent="." unique_id=513160206]
+stream = ExtResource("8_5a50r")
+volume_db = 2.325
+pitch_scale = 0.6
 
 [connection signal="body_entered" from="pickupbox" to="." method="_on_pickupbox_body_entered"]
 [connection signal="body_exited" from="pickupbox" to="." method="_on_pickupbox_body_exited"]

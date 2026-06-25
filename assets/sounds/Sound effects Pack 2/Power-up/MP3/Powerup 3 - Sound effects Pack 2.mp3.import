@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dmbjwikgv7ey8"
+path="res://.godot/imported/Powerup 3 - Sound effects Pack 2.mp3-4f0e0bb947c100b044537307705be98f.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/Sound effects Pack 2/Power-up/MP3/Powerup 3 - Sound effects Pack 2.mp3"
+dest_files=["res://.godot/imported/Powerup 3 - Sound effects Pack 2.mp3-4f0e0bb947c100b044537307705be98f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
