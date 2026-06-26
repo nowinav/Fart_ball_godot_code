@@ -63,6 +63,30 @@ collision_mask = 0
 position = Vector2(-8, 0)
 shape = SubResource("CircleShape2D_fweoc")
 
+[node name="CharacterBody2D2" type="CharacterBody2D" parent="Node2D" unique_id=1423026474]
+collision_layer = 4096
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/CharacterBody2D2" unique_id=1089052881]
+position = Vector2(-8, 0)
+shape = SubResource("CircleShape2D_fweoc")
+
+[node name="CharacterBody2D3" type="CharacterBody2D" parent="Node2D" unique_id=707948279]
+position = Vector2(0, 8)
+collision_layer = 8192
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/CharacterBody2D3" unique_id=1287607401]
+shape = SubResource("CircleShape2D_fweoc")
+
+[node name="CharacterBody2D4" type="CharacterBody2D" parent="Node2D" unique_id=1813671380]
+position = Vector2(0, -8)
+collision_layer = 8192
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/CharacterBody2D4" unique_id=1917694192]
+shape = SubResource("CircleShape2D_fweoc")
+
 [node name="snap" type="AudioStreamPlayer2D" parent="." unique_id=575937369]
 stream = ExtResource("4_snl8y")
 

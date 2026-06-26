@@ -16,7 +16,7 @@ var body_list:Array
 var fart_knockback_strength =400
 var void_killed_particles_scene:PackedScene =preload("res://common/particle2d/void_killed_particles.tscn")
 var tilemap_layer:TileMapLayer
-var attackable:bool=false
+var attackable:bool=true
 var picked_body
 var pickable:bool
 var target_body
@@ -210,7 +210,8 @@ func _on_attackrange_body_exited(body: Node2D) -> void:
 		
 		#attacked_body=null
 func attack():
-	if Input.is_action_just_pressed("select") :
+	if Input.is_action_just_pressed("select") and attackable :
+		attackable=false
 		fart_particle.emitting=true	
 		if fart_sound.playing==false:
 			fart_sound.playing=true
@@ -228,7 +229,8 @@ func attack():
 					attacked_body.velocity+=dir*fart_knockback_strength
 				else:
 					attacked_body.velocity=dir*fart_knockback_strength
-		
+		await  get_tree().create_timer(2).timeout
+		attackable=true
 	
 
 

@@ -133,6 +133,11 @@ fart_sound = NodePath("fart")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1045853242]
 shape = SubResource("CircleShape2D_72klv")
 
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=889924758]
+self_modulate = Color(0.84761, 0.44850242, 3.85046e-07, 1)
+texture = ExtResource("1_72klv")
+offset = Vector2(0, -5)
+
 [node name="attackrange" type="Area2D" parent="." unique_id=386379568]
 collision_layer = 32
 collision_mask = 3
@@ -157,12 +162,7 @@ collision_mask = 3
 
 [node name="RayCast2D3" type="RayCast2D" parent="." unique_id=1608927649]
 target_position = Vector2(10, 0)
-collision_mask = 3
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=889924758]
-self_modulate = Color(0.84761, 0.44850242, 3.85046e-07, 1)
-texture = ExtResource("1_72klv")
-offset = Vector2(0, -5)
+collision_mask = 4097
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=927400819]
 libraries/ = SubResource("AnimationLibrary_up7c7")

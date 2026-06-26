@@ -6,7 +6,7 @@ var ballmarker_2:Vector2
 var body_list:Array
 var speed :int =Global.football_ai_speed
 var goal_pos:Vector2
-var attackable:bool
+var attackable:bool=true
 var dribalable:bool
 var marker:Vector2
 var player:Player
@@ -23,6 +23,7 @@ var ball_to_ai:Vector2
 var tangent : Vector2
 var fric_coeff=0.9
 var spawn_timeabe:bool
+
 @export var raycast:RayCast2D
 @export var fart_sound:AudioStreamPlayer2D
 # Called when the node enters the scene tree for the first time.
@@ -56,11 +57,15 @@ func smarth_rotation(pos:Vector2):
 	var clockwise = Vector2(-ball_to_ai.y, ball_to_ai.x)
 	var counter = Vector2(ball_to_ai.y, -ball_to_ai.x)
 	if tile_checker_general(target):
-		if clockwise.dot(ball_to_ai)>counter.dot(ball_to_ai):
-			velocity = clockwise.normalized() * speed
-		else:
-			velocity = counter.normalized() * speed
+		if not dir_ray.is_colliding():
+			if global_position.distance_to(Global.ballmarker_2)>global_position.distance_to(Global.ballmarker_3):
+				velocity = clockwise.normalized() * speed
+			else:
+				velocity = counter.normalized() * speed
+		else :
+			defend()
 	else:
+		
 		attack()
 func animation_handler():
 	if velocity.length()>0:
@@ -75,7 +80,7 @@ func state_handler():
 
 	if target.distance_to(goal_pos)>512 and global_position.distance_to(Global.puck_pos)>100:
 		state=states.Defend
-	else:
+	elif target.distance_to(goal_pos)<512:
 		state=states.Chase
 	state_giver()
 func state_giver():
@@ -104,11 +109,12 @@ func Dribble():
 	pass
 func chase():
 	
-	if not raycast.is_colliding()and  raycast_ball.is_colliding():
-		smarth_rotation(raycast_ball.get_collision_point())
-	else:
-		
-		velocity=dir.normalized()*speed
+		if not raycast.is_colliding()and  raycast_ball.is_colliding():
+			smarth_rotation(raycast_ball.get_collision_point())
+		else:
+			
+			velocity=dir.normalized()*speed
+	
 	
 func tile_checker_general(position:Vector2):
 	var pos=tilemap_layer.local_to_map(position)
@@ -155,17 +161,21 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 func attack():
-	if fart_sound.playing==false:
-		fart_sound.playing=true
-	for i in body_list:
-		var dir =global_position.direction_to(i.global_position)
-		fart_particles.emitting=true
-		if i is Pickable:
+	if attackable:
+		attackable=false
+		if fart_sound.playing==false:
+			fart_sound.playing=true
+		for i in body_list:
+			var dir =global_position.direction_to(i.global_position)
+			fart_particles.emitting=true
+			if i is Pickable:
+					
+				i.linear_velocity=400*dir
+			elif i is Player:
 				
-			i.linear_velocity=400*dir
-		elif i is Player:
-			
-			i.velocity=200*dir
+				i.velocity=200*dir
+		await  get_tree().create_timer(2).timeout
+		attackable=true
 func _on_attackrange_body_entered(body: Node2D) -> void:
 	if body:
 		body_list.append(body)

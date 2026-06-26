@@ -129,7 +129,7 @@ volume_db = 24.0
 [node name="markers" type="Node2D" parent="." unique_id=509579922]
 
 [node name="goal1" type="Marker2D" parent="markers" unique_id=341359796]
-position = Vector2(0, -512)
+position = Vector2(0, -496)
 
 [node name="goal2" type="Marker2D" parent="markers" unique_id=934950639]
 position = Vector2(0, 512)

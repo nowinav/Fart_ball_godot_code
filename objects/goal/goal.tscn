@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b6476eylorycf"]
 
 [ext_resource type="Script" uid="uid://cblh3awvoxebq" path="res://objects/goal/goal.gd" id="1_elvn0"]
-[ext_resource type="Texture2D" uid="uid://ljsppdfao2n2" path="res://assets/demo/demoassets/100-Sub-Assets-Free/Misc_Tiles/Archway-1.png" id="1_vcxaa"]
+[ext_resource type="Texture2D" uid="uid://ljsppdfao2n2" path="res://Archway-1.png" id="1_vcxaa"]
 [ext_resource type="AudioStream" uid="uid://dsw3856olfkwj" path="res://assets/sounds/Sound effects Pack 2/Lose/WAV/Lose 10 - Sound effects Pack 2.wav" id="3_m1hdy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1cvb"]
