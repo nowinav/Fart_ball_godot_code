@@ -144,6 +144,8 @@ func dir_handler():
 		dir=global_position.direction_to(Global.puck_pos)
 		dir_bool=true
 func _physics_process(delta: float) -> void:
+	if Global.puck_alive==false:
+		kill()
 	velocity*=fric_coeff
 	#dir_handler()
 	if not Global.puck_alive:
@@ -176,6 +178,16 @@ func attack():
 				i.velocity=200*dir
 		await  get_tree().create_timer(2).timeout
 		attackable=true
+func kill():
+	var list=[]
+	for x in range(global_position.x-10,global_position.x+10):
+		for y in range(global_position.y-10,global_position.y+10):
+			if tile_checker_general(Vector2(x,y)):
+				list.append(Vector2(x,y))
+	for i in list:
+		if i.distance_to(global_position)<10:
+			dir=global_position.direction_to(i)
+			velocity=dir*speed*5
 func _on_attackrange_body_entered(body: Node2D) -> void:
 	if body:
 		body_list.append(body)
